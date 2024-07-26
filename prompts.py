@@ -145,17 +145,22 @@ SOURCE_DETECTOR_PROMPT_DETAILED = """Given the user question, perform the follow
             Strictly follow only the below guidelines to do the classification. DO NOT use any pre defined knowledge to assume that the question belongs to a particular source.            
     
             Guidelines:            
-             
-
-            Classify as ['ifrs_answer_node']: If the question has a explicit mention of only the words from the following list ['IFRS', 'IAS', 'IFRIC', 'International Financial Reporting Standards', 'International Standards']   
+               
+            Classify as ['ifrs_answer_node', 'auditor_guidance_answer_node']: If the question has a explicit mention of only the words from the following list ['IFRS', 'IAS', 'IFRIC', 'International Financial Reporting Standards', 'International Standards']          
+            Classify as ['auditor_guidance_answer_node']: If the question asks for any KPMG guidance or contains 'KPMG' in it.
+            Classify as ['auditor_guidance_answer_node']: If the question asks for any PwC guidance or contains 'PwC' in it.
+            Classify as ['auditor_guidance_answer_node']: If the question asks for any EY guidance or contains 'EY' in it.
             Classify as ['annual_reports_answer_node']: If the question mentions 'Roche','GSK','Bayer','AstraZeneca','Sanofi', 'Amgen','Biogen', Abbvie', 'BMS' - Bristol Myers Squibb, 'Gilead', 'Eli Lilly', 'Merck', 'Pfizer', 'Takeda','Johnson&Johnson', 'novo-nordisk' or asks how our peers/competitors deal with something or if the question has any company or competitor name. 
-            Classify as ['ifrs_answer_node', 'annual_reports_answer_node']: If the question is ambiguous or does not meet any of the above criteria or even if you are slightly doubtful or if you think the words in the question belong to financial accounting concept or if None of the above key words are explicitly stated or if the quesiton asks about any informaiton with respect to Novartis.
-            Classify as ['ifrs_answer_node', 'annual_reports_answer_node'] : If the question contains 'external sources' or 'external guidance' or 'external'
+            Classify as ['auditor_guidance_answer_node']: If the question asks for any Auditor guidance or contains 'auditor' in it    
+            Classify as ['ifrs_answer_node', 'auditor_guidance_answer_node', 'annual_reports_answer_node']: If the question is ambiguous or does not meet any of the above criteria or even if you are slightly doubtful or if you think the words in the question belong to financial accounting concept or if None of the above key words are explicitly stated or if the quesiton asks about any informaiton with respect to Novartis.
+            Classify as ['ifrs_answer_node', 'auditor_guidance_answer_node', 'annual_reports_answer_node'] : If the question contains 'external sources' or 'external guidance' or 'external'
             if the question asks about both internal and external sources, combine them and provide them all in a list.
             **Note: A question might contain multiple mentions from each class. If the question contains multiple mentions from one or more classes, then provide all of them in a list.    
     
-            For example : Question: "What is the guidance for identifying a lease?" --here it is ambiguous. user didnot target a source here. hence choose the following-
-                          Output: ['ifrs_answer_node', 'annual_reports_answer_node']
+            For example : Question: "What is the guidance for identifying a lease according to IFRS?" - here user has a targeted source i.e. ifrs_answer_node
+                          Output: ['ifrs_answer_node']
+                          Question: "What is the guidance for identifying a lease?" --here it is ambiguous. user didnot target a source here. hence choose the following-
+                          Output: ['ifrs_answer_node', 'auditor_guidance_answer_node', 'annual_reports_answer_node']
                           
         Response Format:
     \n{format_instructions}\n
@@ -163,6 +168,7 @@ SOURCE_DETECTOR_PROMPT_DETAILED = """Given the user question, perform the follow
         Question: {question}
         Output:
         """
+
 
 IFRS_di_prompt = """You are an intelligent agent called FRA Copilot trained to answer a question coming from an expert in finance and accounting department of Novartis. You will call yourself ONLY as a FRA Copilot.
 - You are a Generative AI powered buddy that will act as an insight engine to assist the finance professionals of Novartis who are true experts in the field of Finance with simple to complex technical accounting or financial process related challenges or questions with a wealth of accounting standards/ policies & several internal and external sources. 
