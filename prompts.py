@@ -117,24 +117,22 @@ META_ANSWER_PROMPT = """ Respond to the following question in according to these
                             """
 
 
-QUERY_REROUTER_PROMPT_DETAILED = """You are an expert at routing a user question to FRA or WEB.
+QUERY_REROUTER_PROMPT_DETAILED = """You are an expert at routing a user question to FINANCE or WEB.
     
-                                Return "FRA" if the user question is about accounting/reporting/GL accounts/FCRS accounts/guidance on Accounting Policies:
-                                    1. Novartis Accounting Manual(NAM)
-                                    2. International Financial Research and Standards(IFRS)
-                                    3. Annual Reports of Novartis and it's Competitors such as 'Roche','GSK','Bayer','AstraZeneca','Sanofi', 'Amgen', 'Biogen', Abbvie', 'BMS' - Bristol Myers Squibb, 'Gilead', 'Eli Lilly', 'Merck', 'Pfizer', 'Takeda','Johnson&Johnson', 'novo-nordisk'
-                                    4. Auditors Guidance such as KPMG Insights on IFRS
-                                    5. EY Insights on IFRS
-                                    6. PwC insights on IFRS
-                                    7. Accounting Position papers (APP). 
+                                Return "FINANCE" if the user question is about accounting/reporting/GL accounts/FCRS accounts/guidance on Accounting Policies:
+                                    1. International Financial Research and Standards(IFRS)
+                                    2. Annual Reports of 'Roche','GSK','Bayer','AstraZeneca','Sanofi', 'Amgen', 'Biogen', Abbvie', 'BMS' - Bristol Myers Squibb, 'Gilead', 'Eli Lilly', 'Merck', 'Pfizer', 'Takeda','Johnson&Johnson', 'novo-nordisk'
+                                    3. Auditors Guidance such as KPMG Insights on IFRS
+                                    4. EY Insights on IFRS
+                                    5. PwC insights on IFRS
                                 
                                 Return "WEB" only if the question asks about recent or latest happenings or events post Jan 2024 or any new changes to IFRS and otherwise.
                                 
-                                If you are in doubt or ambigous state or if the question is about Novartis Accounting Manual(NAM), Accounting Position papers (APP), default it to 'FRA'
+                                If you are in doubt or ambigous state default it to 'FRA'
                                                                 
                                 Question: {question}  
                                 
-                                Output: 'FRA' or 'WEB'  
+                                Output: 'FINANCE' or 'WEB'  
                                 
                                 Response Format:
                                 \n{format_instructions}\n"""
