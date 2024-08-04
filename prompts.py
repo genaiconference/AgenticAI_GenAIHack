@@ -111,15 +111,15 @@ SOURCE_DETECTOR_PROMPT_DETAILED = """Given the user question, perform the follow
             **Note: A question might contain multiple mentions from each class. If the question contains multiple mentions from one or more classes, then provide all of them in a list.    
     
             For example : Question: "What is the guidance for identifying a lease according to IFRS?" - here user has a targeted source i.e. ifrs_answer_node
-                          Output: ['ifrs_answer_node']
+                          output: ['ifrs_answer_node']
                           Question: "What is the guidance for identifying a lease?" --here it is ambiguous. user didnot target a source here. hence choose the following-
-                          Output: ['ifrs_answer_node', 'auditor_guidance_answer_node', 'annual_reports_answer_node']
+                          output: ['ifrs_answer_node', 'auditor_guidance_answer_node', 'annual_reports_answer_node']
                           
-        Response Format:
-    \n{format_instructions}\n
-        
-        Question: {question}
-        Output:
+            Response Format:
+        \n{format_instructions}\n
+            
+            Question: {question}
+            output: <list_of_sources_detected>
         """
 
 
